@@ -30,6 +30,12 @@ describe User do
   it { should be_valid }
 	it { should_not be_admin }
 
+	describe "when trying to mass assign admin" do
+		it "should throw exception" do
+			expect { User.new(admin: true) }.to raise_error (ActiveModel::MassAssignmentSecurity::Error)
+		end
+	end
+
 	describe "with admin attribute set to 'true'" do
 		before do
 			@user.save!
